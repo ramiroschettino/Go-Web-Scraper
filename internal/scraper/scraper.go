@@ -17,10 +17,9 @@ func ScrapeWebsite(url string) ([]map[string]string, error) {
 		text := e.Text
 		link := e.Attr("href")
 
-		// Crear una instancia del modelo ScrapedData
 		data := models.ScrapedData{
-			URL:     link,
-			Content: text,
+			URL:  link,
+			Text: text,
 		}
 
 		err := db.SaveScrapedData(data)

@@ -7,7 +7,6 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
-	"github.com/ramiroschettino/Go-Web-Scraper/internal/models"
 )
 
 var DB *sql.DB
@@ -25,25 +24,12 @@ func Connect() {
 	var err error
 	DB, err = sql.Open("postgres", dsn)
 	if err != nil {
-		log.Fatalf("❌ Error conectando a la base de datos: %v", err)
+		log.Fatalf("Error conectando a la base de datos: %v", err)
 	}
 
 	if err := DB.Ping(); err != nil {
-		log.Fatalf("❌ No se pudo conectar a la base de datos: %v", err)
+		log.Fatalf("No se pudo conectar a la base de datos: %v", err)
 	}
 
-	log.Println("✅ Conectado a PostgreSQL exitosamente")
-}
-
-// SaveScrapedData guarda los datos scrapeados en la base de datos
-func SaveScrapedData(data models.ScrapedData) error {
-	query := `INSERT INTO scraped_data (url, content) VALUES ($1, $2)`
-	_, err := DB.Exec(query, data.URL, data.Content)
-	if err != nil {
-		log.Printf("❌ Error guardando en la base de datos: %v", err)
-		return err
-	}
-
-	log.Println("✅ Datos guardados en la base de datos")
-	return nil
+	log.Println("Conección exitosa")
 }
