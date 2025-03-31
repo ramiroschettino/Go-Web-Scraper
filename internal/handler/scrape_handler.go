@@ -30,6 +30,8 @@ func ScrapeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("🔍 Resultados del scraping:", results)
+
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(results)
 }
